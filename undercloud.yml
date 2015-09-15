@@ -1,0 +1,10 @@
+---
+- name: Prepare undercloud
+  hosts: undercloud
+  remote_user: stack
+  sudo: yes
+  sudo_user: root
+
+  roles:
+    - undercloud/install_repos
+
