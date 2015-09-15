@@ -1,0 +1,7 @@
+---
+- name: Set hostname
+  hostname: name=undercloud.remote-lab.net
+
+- name: Add hostname to hosts
+  shell: echo '127.0.0.1      undercloud.remote-lab.net undercloud' >> /etc/hosts
+

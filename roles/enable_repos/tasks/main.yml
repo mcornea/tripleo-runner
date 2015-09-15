@@ -1,0 +1,8 @@
+---
+- name: Enable RDO Kilo
+  command: yum install -y https://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm
+  ignore_errors: yes
+
+- name: Enable RDO Trunk
+  shell: curl -s -S $(curl -s -S http://docs.openstack.org/developer/tripleo-docs/installation/installing.html  | grep -A1 'RDO Trunk' | grep trunk | awk {'print $3'}) -o /etc/yum.repos.d/delorean.repo
+

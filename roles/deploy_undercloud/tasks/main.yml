@@ -1,0 +1,8 @@
+---
+- name: Copy the configuration file
+  command: cp /usr/share/instack-undercloud/undercloud.conf.sample /home/stack/undercloud.conf
+
+- name: Install undercloud
+  environment:
+   DIB_INSTALLTYPE_puppet_modules: source
+  shell: openstack undercloud install 

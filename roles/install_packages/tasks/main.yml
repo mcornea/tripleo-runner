@@ -1,0 +1,6 @@
+---
+- name: Install yum-plugin-priorities
+  yum: name=yum-plugin-priorities state=installed 
+
+- name: Install python-rdomanager-oscplugin
+  yum: name=python-rdomanager-oscplugin state=installed 

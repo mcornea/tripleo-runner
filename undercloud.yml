@@ -2,9 +2,10 @@
 - name: Prepare undercloud
   hosts: undercloud
   remote_user: stack
-  sudo: yes
-  sudo_user: root
 
   roles:
-    - undercloud/install_repos
+    - { role: enable_repos, sudo: yes, sudo_user: root }
+    - { role: set_hostname, sudo: yes, sudo_user: root }
+    - { role: install_packages, sudo: yes, sudo_user: root }
+    - deploy_undercloud
 
