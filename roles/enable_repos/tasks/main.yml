@@ -4,5 +4,5 @@
   ignore_errors: yes
 
 - name: Enable RDO Trunk
-  shell: curl -s -S $(curl -s -S http://docs.openstack.org/developer/tripleo-docs/installation/installing.html  | grep -A1 'RDO Trunk' | grep trunk | awk {'print $3'}) -o /etc/yum.repos.d/delorean.repo
+  shell: curl -o /etc/yum.repos.d/delorean.repo http://trunk.rdoproject.org/centos7/df/03/df0377d64e1ef0b53c4e78a8ff6a50159de5131a_733f1417/delorean.repo
 
