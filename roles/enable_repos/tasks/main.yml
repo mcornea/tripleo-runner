@@ -1,8 +1,9 @@
 ---
-- name: Enable RDO Kilo
-  command: yum install -y https://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm
-  ignore_errors: yes
+- name: Enable EPEL
+  yum: name=epel-release state=installed 
 
-- name: Enable RDO Trunk
-  shell: curl -o /etc/yum.repos.d/delorean.repo http://trunk.rdoproject.org/centos7/df/03/df0377d64e1ef0b53c4e78a8ff6a50159de5131a_733f1417/delorean.repo
+- name: Enable last known good RDO Trunk Delorean repository
+  shell: curl -o /etc/yum.repos.d/delorean.repo http://trunk.rdoproject.org/centos7/current-tripleo/delorean.repo
 
+- name: Enable the Delorean Deps repository
+  shell: sudo curl -o /etc/yum.repos.d/delorean-deps.repo http://trunk.rdoproject.org/centos7/delorean-deps.repo
