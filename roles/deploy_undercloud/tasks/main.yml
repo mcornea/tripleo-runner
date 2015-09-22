@@ -2,6 +2,9 @@
 - name: Copy the configuration file
   command: cp /usr/share/instack-undercloud/undercloud.conf.sample /home/stack/undercloud.conf
 
+- name: Disable tempest
+  command: sed -i s/#enable_tempest.*/enable_tempest\ =\ false/ undercloud.conf
+
 - name: Install undercloud
   environment:
    DIB_INSTALLTYPE_puppet_modules: source
