@@ -1,0 +1,46 @@
+export ANSIBLE_FORCE_COLOR=true
+
+export OS_USERNAME=jenkins
+export OS_TENANT_NAME=ci
+export OS_PASSWORD=${passwd}
+export OS_AUTH_URL=http://compute.remote-lab.net:5000/v2.0/
+export OS_REGION_NAME=RegionOne
+export TEMPLATE_URL='https://gist.githubusercontent.com/remoteur/c66766c63386e1551eab/raw/dbcdd690906068dda63c0b0a579c14181988d708/heat_centos'
+
+heat stack-create --template-url $TEMPLATE_URL -P 'image=CentOS-7-x86_64-GenericCloud-1503;flavor=cb94bd87-4096-4005-b66d-688007a40204;private_network=public;public_network=vpn-net;key=jenkins' undercloud
+
+timeout_seconds=120
+elapsed_seconds=0
+while true; do
+    STATUS=$(heat stack-list | grep undercloud | awk {'print $6'})
+    if [  "$STATUS" == "CREATE_COMPLETE" ]; then
+        break
+    fi
+    sleep 3
+    (( elapsed_seconds += 3 ))
+    if [ $elapsed_seconds -ge $timeout_seconds ]; then
+        echo "Undercloud stack didn't get created"
+        break
+    fi
+done
+UNDERCLOUD_IP=$(heat output-show undercloud IP | sed s/\"//g)
+
+timeout_seconds=120
+elapsed_seconds=0
+while true; do
+    SSH_READY=$(bash -c "ssh -o StrictHostKeyChecking=no -oBatchMode=yes stack@$UNDERCLOUD_IP 'whoami'; exit 0")
+    if [ "$SSH_READY" == "stack" ]; then
+        break
+    fi
+    sleep 3
+    (( elapsed_seconds += 3 ))
+    if [ $elapsed_seconds -ge $timeout_seconds ]; then
+        echo "Cannot SSH to Undercloud"
+        break
+    fi
+done
+
+sed -i s/undercloud_address/$UNDERCLOUD_IP/ hosts
+
+ansible-playbook -i hosts undercloud.yml
+
