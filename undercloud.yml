@@ -8,4 +8,3 @@
     - { role: set_hostname, sudo: yes, sudo_user: root }
     - { role: install_packages, sudo: yes, sudo_user: root }
     - deploy_undercloud
-

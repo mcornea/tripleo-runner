@@ -7,3 +7,12 @@
 
 - name: Install undercloud
   shell: openstack undercloud install 
+
+- name: Build images
+  environment:
+    DELOREAN_TRUNK_MGT_REPO: "http://trunk.rdoproject.org/centos7/current/"
+    DIB_YUM_REPO_CONF: "/etc/yum.repos.d/delorean.repo /etc/yum.repos.d/delorean-deps.repo"
+  shell: openstack overcloud image build --all
+
+- name: Upload images
+  shell: source /home/stack/stackrc; openstack overcloud image upload
