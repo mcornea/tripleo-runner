@@ -6,6 +6,4 @@
   command: sed -i s/#enable_tempest.*/enable_tempest\ =\ false/ undercloud.conf
 
 - name: Install undercloud
-  environment:
-   DIB_INSTALLTYPE_puppet_modules: source
   shell: openstack undercloud install 
