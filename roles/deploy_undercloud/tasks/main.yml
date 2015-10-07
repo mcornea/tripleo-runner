@@ -15,4 +15,4 @@
   shell: openstack overcloud image build --all
 
 - name: Upload images
-  shell: source /home/stack/stackrc; openstack overcloud image upload
+  shell: cd /home/stack/; source stackrc; openstack overcloud image upload
