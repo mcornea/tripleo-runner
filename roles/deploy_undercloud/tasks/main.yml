@@ -6,11 +6,13 @@
   command: sed -i s/#enable_tempest.*/enable_tempest\ =\ false/ undercloud.conf
 
 - name: Install undercloud
+  environment:
+    DIB_INSTALLTYPE_puppet_modules: "source"
   shell: openstack undercloud install 
 
 - name: Build images
   environment:
-    DELOREAN_TRUNK_MGT_REPO: "http://trunk.rdoproject.org/centos7/current/"
+    DIB_INSTALLTYPE_puppet_modules: "source"
     DIB_YUM_REPO_CONF: "/etc/yum.repos.d/delorean.repo /etc/yum.repos.d/delorean-deps.repo"
   shell: openstack overcloud image build --all
 
