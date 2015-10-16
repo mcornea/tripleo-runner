@@ -13,7 +13,7 @@
   environment:
     USE_DELOREAN_TRUNK: 1
     DELOREAN_TRUNK_REPO: "http://trunk.rdoproject.org/liberty/centos7/current-passed-ci/"
-    DELOREAN_REPO_FILE: "/etc/yum.repos.d/delorean.repo"
+    DELOREAN_REPO_FILE: "delorean.repo"
   shell: openstack overcloud image build --all
 
 - name: Upload images
