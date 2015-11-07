@@ -2,8 +2,5 @@
 - name: Enable EPEL
   yum: name=epel-release state=installed 
 
-- name: Enable last known good RDO Trunk Delorean repository
-  shell: curl -o /etc/yum.repos.d/delorean.repo http://trunk.rdoproject.org/centos7-liberty/current-passed-ci/delorean.repo
-
-- name: Enable the Delorean Deps repository
-  shell: curl -o /etc/yum.repos.d/delorean-deps.repo http://trunk.rdoproject.org/centos7-liberty/delorean-deps.repo
+- name: Enable Liberty repo
+  yum: name=http://rdoproject.org/repos/openstack-liberty/rdo-release-liberty.rpm state=present
