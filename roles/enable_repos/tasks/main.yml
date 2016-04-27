@@ -2,5 +2,8 @@
 - name: Enable EPEL
   yum: name=epel-release state=installed 
 
-- name: Enable Liberty repo
-  yum: name=http://rdoproject.org/repos/openstack-liberty/rdo-release-liberty.rpm state=present
+- name: Enable latest RDO Stable Delorean repository 
+  get_url: url=https://trunk.rdoproject.org/centos7-liberty/current/delorean.repo dest=/etc/yum.repos.d/delorean-liberty.repo
+
+- name: Enable the Delorean Deps repository
+  get_url: url=http://trunk.rdoproject.org/centos7-liberty/delorean-deps.repo dest=/etc/yum.repos.d/delorean-deps-liberty.repo

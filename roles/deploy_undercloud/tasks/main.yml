@@ -2,9 +2,6 @@
 - name: Copy the configuration file
   command: cp /usr/share/instack-undercloud/undercloud.conf.sample /home/stack/undercloud.conf
 
-- name: Disable tempest
-  command: sed -i s/#enable_tempest.*/enable_tempest\ =\ false/ undercloud.conf
-
 - name: Install undercloud
   environment:
   shell: openstack undercloud install 
@@ -12,7 +9,7 @@
 - name: Build images
   environment:
     USE_DELOREAN_TRUNK: 1
-    DELOREAN_TRUNK_REPO: "http://trunk.rdoproject.org/liberty/centos7/current-passed-ci/"
+    DELOREAN_TRUNK_REPO: "http://trunk.rdoproject.org/centos7-liberty/current/"
     DELOREAN_REPO_FILE: "delorean.repo"
   shell: openstack overcloud image build --all
 
